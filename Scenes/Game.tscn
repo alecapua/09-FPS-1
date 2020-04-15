@@ -1,14 +1,18 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/shotgun.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/Game.gd" type="Script" id=3]
+[ext_resource path="res://Assets/natureKit-leavesFall.material" type="Material" id=4]
+[ext_resource path="res://Assets/stone_statue.gltf" type="PackedScene" id=5]
+[ext_resource path="res://Assets/tree_pine_tallSquare_detailed.gltf" type="PackedScene" id=6]
 
 [sub_resource type="ConvexPolygonShape" id=1]
 points = PoolVector3Array( -15.082, 0.0819512, -15.082, -15.082, 0.0819512, 15.082, 15.082, 0.0819512, -15.082, 15.082, 0.0819512, 15.082 )
 
 [sub_resource type="PlaneMesh" id=2]
-size = Vector2( 30, 30 )
+material = ExtResource( 4 )
+size = Vector2( 150, 150 )
 
 [sub_resource type="CapsuleShape" id=3]
 radius = 0.5
@@ -19,14 +23,35 @@ extents = Vector3( 0.4, 0.1, 0.4 )
 [node name="Game" type="Spatial"]
 script = ExtResource( 3 )
 
+[node name="Spatial" type="Spatial" parent="."]
+
 [node name="Ground" type="StaticBody" parent="."]
 
 [node name="CollisionShape" type="CollisionShape" parent="Ground"]
+transform = Transform( 3, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 shape = SubResource( 1 )
 
 [node name="Ground" type="MeshInstance" parent="Ground"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.525209, -0.142905, 1.2148 )
 mesh = SubResource( 2 )
 material/0 = null
+
+[node name="tree_pine_tallSquare_detailed" parent="Ground/Ground" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.74338, 0.395191, 4.91869 )
+
+[node name="stone_statue" parent="Ground/Ground/tree_pine_tallSquare_detailed" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0155, -0.168157, 2.47745 )
+
+[node name="stone_statue2" parent="Ground/Ground/tree_pine_tallSquare_detailed" instance=ExtResource( 5 )]
+
+[node name="tree_pine_tallSquare_detailed2" parent="Ground/Ground" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.974368, 0.369968, 2.89139 )
+
+[node name="tree_pine_tallSquare_detailed3" parent="Ground/Ground" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.321551, 1.74045, 0.875286 )
+
+[node name="tree_pine_tallSquare_detailed4" parent="Ground/Ground" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0085597, -0.016794, -0.006598 )
 
 [node name="Player" type="KinematicBody" parent="."]
 script = ExtResource( 1 )
